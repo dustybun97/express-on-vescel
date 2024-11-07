@@ -15,6 +15,9 @@ app.get("/profiles", (req, res) => {
     },
   });
 });
+app.get("/", (req, res) => {
+    res.send("Hello TechUp!");
+  });
 
 app.listen(port, () => {
   console.log(`Server is running at ${port}`);
