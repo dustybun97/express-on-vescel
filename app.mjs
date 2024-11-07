@@ -16,7 +16,7 @@ app.get("/profiles", (req, res) => {
   });
 });
 app.get("/", (req, res) => {
-    res.send("Hello TechUp!");
+   return res.send("Hello TechUp!");
   });
 
 app.listen(port, () => {
