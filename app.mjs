@@ -2,6 +2,8 @@ import express from "express";
 import cors from "cors";
 import connectionPool from "./utils/db.mjs";
 import "dotenv/config";
+import { validateCreatePostData } from "./middlewares/post.validation.mjs";
+import { validateEditPostData } from "./middlewares/put.validation.mjs";
 
 const app = express();
 const port = process.env.PORT || 4001;
@@ -20,7 +22,7 @@ app.get("/profiles", (req, res) => {
 app.get("/", (req, res) => {
   return res.send("Hello TechUp!");
 });
-app.post("/posts", async (req, res) => {
+app.post("/posts", [validateCreatePostData], async (req, res) => {
   const newPost = req.body;
   try {
     const query = `insert into posts (title, image, category_id, description, content, status_id)
@@ -64,7 +66,7 @@ app.get("/posts/:postId", async (req, res) => {
   }
 });
 
-app.put("/posts/:postId", async (req, res) => {
+app.put("/posts/:postId", [validateEditPostData], async (req, res) => {
   const postIdFromClient = req.params.postId;
   const updatedPost = { ...req.body };
   console.log("Updating post with ID:", postIdFromClient);
