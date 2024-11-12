@@ -22,6 +22,8 @@ export const validateCreatePostData = (req, res, next) => {
   if (!req.body.status_id || typeof req.body.status_id !== "number") {
     return res.status(400).json({ message: "Status_id must be a number" });
   }
+
+  next();
 };
 
 // ข้อมูลที่จะถูกส่งเข้ามาจาก Client มีดังนี้:
